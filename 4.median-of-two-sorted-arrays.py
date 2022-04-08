@@ -12,28 +12,31 @@ class Solution(object):
         :type nums2: List[int]
         :rtype: float
         """
-        total_len = int((len(nums1)+len(nums2))/2)
-        a_left = 0
-        a_right = int(len(nums1)/2)
-        b_left = 0
-        b_right = total_len - a_right - 1
-        while nums1[a_right] > nums2[b_right+1] or nums1[a_right+1] < nums2[b_right]:
-            if nums1[a_right] > nums2[b_right+1]:
-                b_right = int(b_right+len(nums2))
-                a_right = total_len - b_right - 1
-            if nums1[a_right+1] < nums2[b_right]:
-                a_right = int(a_right+len(nums1))
-                b_right = total_len - a_right - 1
-            print(a_right)
-            print(b_right)
-        if total_len%2 == 0:
-            return (nums1[a_right+1]+nums2[b_right+1])/2
-        if nums1[a_right+1] < nums2[b_right+1]:
-            return nums1[a_right+1]
-        else:
-            return nums2[b_right+1]
+        if len(nums2) < len(nums1):
+            nums1, nums2 = nums2, nums1
+        len1 = len(nums1)
+        len2 = len(nums2)
+        len_total = len1 + len2
+        len_half = len_total // 2
 
-        
-    
+        left, right = 0, len(nums1) - 1
+        while True:
+            i = (left + right) // 2
+            j = len_half - i - 2
+
+            left_1 = nums1[i] if i >= 0 else float("-infinity")
+            right_1 = nums1[i+1] if (i + 1) < len1 else float("infinity")
+            left_2 = nums2[j] if j >= 0 else float("-infinity")
+
+            right_2 = nums2[j+1] if (j + 1) < len2 else float("infinity")
+
+            if left_1 <= right_2 and left_2 <= right_1:
+                if len_total % 2:
+                    return min(right_1, right_2)
+                return (max(left_1, left_2) + min(right_1, right_2)) / 2.
+            elif left_1 > right_2:
+                right = i - 1
+            else:
+                left = i + 1
 # @lc code=end
 
