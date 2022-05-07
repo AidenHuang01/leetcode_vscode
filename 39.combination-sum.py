@@ -12,6 +12,22 @@ class Solution(object):
         :type target: int
         :rtype: List[List[int]]
         """
-        
+        valid = False
+        for i in candidates:
+            if i <= target:
+                valid = True
+        print(valid)
+        if not valid:
+            return None
+        for i in candidates:
+            if i < target:
+                print(target - i)
+                sub = self.combinationSum(candidates, target - i)
+                if sub:
+                    for ans in sub:
+                        ans.append(i)
+        for i in candidates:
+            if i == target:
+                return [i]
 # @lc code=end
 
