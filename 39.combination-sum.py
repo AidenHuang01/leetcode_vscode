@@ -12,22 +12,20 @@ class Solution(object):
         :type target: int
         :rtype: List[List[int]]
         """
-        valid = False
-        for i in candidates:
-            if i <= target:
-                valid = True
-        print(valid)
-        if not valid:
-            return None
-        for i in candidates:
-            if i < target:
-                print(target - i)
-                sub = self.combinationSum(candidates, target - i)
-                if sub:
-                    for ans in sub:
-                        ans.append(i)
-        for i in candidates:
-            if i == target:
-                return [i]
+        def search(candidates, target, temp, result):
+            if target < 0:
+                return
+            if target == 0:
+                result.append(temp)
+            for i in range(len(candidates)):
+                temp.append(candidates[i])
+                search(candidates[i:], target - candidates[i], temp, result)
+                temp.pop(-1)
+        result = []
+        temp = []
+        search(candidates, target, temp, result)
+        return result
+
+        
 # @lc code=end
 
