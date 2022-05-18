@@ -26,6 +26,30 @@ class Solution(object):
         search(candidates, target, temp, result)
         return result
 
+        result = []
+        curr = []
+        self.backTrack(candidates, target, curr, result)
+        return result
+
+
+    def backTrack(self, candidates, target, curr, result):
+        # base case
+        if target < 0:
+            return
+        if target == 0:
+            result.append(curr[:])
+            return
+            
+        for i in range(len(candidates)):
+            # make decision
+            curr.append(candidates[i])
+            # forward
+            self.backTrack(candidates[i:], target-candidates[i], curr, result)
+            # cancle decision
+            curr.pop(-1)
+
+        
+
         
 # @lc code=end
 
