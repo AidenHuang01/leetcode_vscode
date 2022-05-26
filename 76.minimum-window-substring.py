@@ -23,14 +23,10 @@ class Solution:
         shortest_str = [-1,-1]
         shortest = float('inf')
         for r in range(len(s)):
-            # print(f"l: {l} r: {r} substring: {s[l:r+1]}")
-            # print(window)
             window[s[r]] = window.get(s[r], 0) + 1
             if s[r] in need and window[s[r]] == need[s[r]]:
                 have += 1
-            # print(f"have: {have} target:{target}")
             while have == target:
-                # print(f"l: {l} r: {r} shortest_str: {shortest_str} have: {have} target: {target}")
                 if r-l+1 < shortest:
                     shortest_str = [l, r]
                     shortest = r-l+1
