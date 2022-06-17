@@ -13,9 +13,10 @@ class TreeNode:
         self.left = left
         self.right = right
 
-queue = []
+
 class Solution:
     def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+        queue = []
         if not root:
             return []
         curr = root
