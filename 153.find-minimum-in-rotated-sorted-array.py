@@ -12,7 +12,7 @@ class Solution:
         l, r = 0, len(nums) - 1
         while l <= r:
             m = (l + r) // 2
-            print(f"l={l}, r={r}, m={m}  l={nums[l]}, r={nums[r]}, mid={nums[m]}")
+            # print(f"l={l}, r={r}, m={m}  l={nums[l]}, r={nums[r]}, mid={nums[m]}")
             # on the left
             if nums[m] >= nums[0]:
                 l = m + 1
