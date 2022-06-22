@@ -6,10 +6,10 @@
 
 # @lc code=start
 # Definition for singly-linked list.
-# class ListNode(object):
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-#         self.next = next
+class ListNode(object):
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
 class Solution(object):
     def removeNthFromEnd(self, head, n):
         """
@@ -17,15 +17,21 @@ class Solution(object):
         :type n: int
         :rtype: ListNode
         """
-        dummy = ListNode(next = head)
-        slow = dummy
-        fast = dummy
-        for i in range(n+1):
-            fast = fast.next
-        while fast:
-            slow = slow.next
-            fast = fast.next
-        slow.next = slow.next.next
+        if not head:
+            return head
+        if not head.next:
+            return None
+        dummy = ListNode(next=head)
+        l, r = dummy, dummy
+        for i in range(n):
+            r = r.next
+        while r.next:
+            l = l.next
+            r = r.next
+        if l.next:
+            l.next = l.next.next
+        else:
+            l.next = None
         return dummy.next
         
 # @lc code=end
