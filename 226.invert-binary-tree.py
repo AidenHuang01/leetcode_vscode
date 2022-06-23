@@ -14,21 +14,13 @@ class TreeNode:
         self.right = right
 class Solution:
     def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
-        curr = root
-        queue = []
-        if root:
-            queue.append(curr)
-        else:
-            return root
-        while queue:
-            node = queue.pop(0)
-            if node.left:
-                queue.append(node.left)
-            if node.right:
-                queue.append(node.right)
-            # swap left and right
-            node.left, node.right = node.right, node.left
-        return root
+        dummy = root
+        if not root:
+            return
+        self.invertTree(root.left)
+        self.invertTree(root.right)
+        root.left, root.right = root.right, root.left
+        return dummy
 
             
 # @lc code=end
