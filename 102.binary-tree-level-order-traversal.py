@@ -16,23 +16,24 @@ class TreeNode:
 
 class Solution:
     def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
-        queue = []
         if not root:
             return []
-        curr = root
-        queue.append(curr)
+        queue = []
+        queue.append(root)
         res = []
         while queue:
+            new_line = []
+            for node in queue:
+                new_line.append(node.val)
+            res.append(new_line)
             level = []
             for i in range(len(queue)):
-                ptr = queue.pop(0)
-                level.append(ptr.val)
-                if ptr.left:
-                    queue.append(ptr.left)
-                if ptr.right:
-                    queue.append(ptr.right)
-            res.append(level)
+                node = queue.pop(0)
+                if node.left: level.append(node.left) 
+                if node.right: level.append(node.right)
+            queue = level
         return res
+
 
 
 # @lc code=end
