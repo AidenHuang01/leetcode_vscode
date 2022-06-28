@@ -15,25 +15,24 @@ class Solution(object):
         :type k: int
         :rtype: int
         """
-        def sort(nums, left, right):
-            if len(nums) <= 1 or left >= right:
-                return nums
-            pivot = partition(nums, left, right)
-            sort(nums, left, pivot - 1)
-            sort(nums, pivot + 1, right)
-            return nums
-        def partition(nums, left, right):
-            pivot = nums[right]
-            ptr = left
-            for i in range(left, right):
+        def quickSelect(nums, l, r):
+            if l == r:
+                return nums[l]
+            pivot = nums[r]
+            ptr = l
+            for i in range(l, r):
                 if nums[i] <= pivot:
                     nums[ptr], nums[i] = nums[i], nums[ptr]
                     ptr += 1
-            nums[ptr], nums[right] = nums[right], nums[ptr]
-            return ptr
-        nums = sort(nums, 0, len(nums) - 1)
-        # print(nums)
-        return nums[-k]
+            nums[ptr], nums[r] = nums[r], nums[ptr]
+
+            if ptr > len(nums) - k:
+                return quickSelect(nums, l, ptr - 1)
+            elif ptr < len(nums) - k:
+                return quickSelect(nums, ptr + 1, r)
+            else:
+                return nums[ptr]
+        return quickSelect(nums, 0, len(nums) - 1)
         
 # @lc code=end
 
