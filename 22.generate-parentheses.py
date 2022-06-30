@@ -3,23 +3,32 @@
 #
 # [22] Generate Parentheses
 #
-
+from typing import *
 # @lc code=start
 class Solution:
 
     def generateParenthesis(self, n: int) -> List[str]:
-        result = []
-        self.backTracking(result, '', 0, 0, n)
-        return result
+        res = []
+        self.track = ""
+        def backtrack(left, right):
+            if left > right:
+                return
+            if left < 0 or right < 0:
+                return 
+            if left == 0 and right == 0:
+                res.append(self.track)
+            
+            # make decision put left parenthesis
+            self.track += "("
+            backtrack(left-1, right)
+            self.track = self.track[:-1]
 
-    def backTracking(self, result, str, open, close, max):
-        if len(str) == 2*max:
-            result.append(str)
-            return
-        if (open < max):
-            self.backTracking(result, str + '(', open + 1, close, max)
-        if (close < open):
-            self.backTracking(result, str + ')', open, close + 1, max)
+            # make decision put right parenthesis
+            self.track += ")"
+            backtrack(left, right-1)
+            self.track = self.track[:-1]
+        backtrack(n, n)
+        return res
             
 
         
