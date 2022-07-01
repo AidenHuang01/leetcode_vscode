@@ -9,15 +9,15 @@ class Solution:
     def partition(self, s: str) -> List[List[str]]:
         res = []
         track = []
-        def backtrack(start, s):
+        def backtrack(start):
             if start >= len(s):
                 res.append(track.copy())
             for i in range(start, len(s)):
-                if s[start: i+1] == s[start: i+1][::-1]:
-                    track.append(s[start: i+1])
-                    backtrack(i+1, s)
+                if s[start:i+1] == s[start:i+1][::-1]:
+                    track.append(s[start:i+1])
+                    backtrack(i+1)
                     track.pop()
-        backtrack(0, s)
+        backtrack(0)
         return res
 # @lc code=end
 
