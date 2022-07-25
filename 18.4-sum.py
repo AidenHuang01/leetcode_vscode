@@ -1,12 +1,12 @@
 #
-# @lc app=leetcode id=15 lang=python3
+# @lc app=leetcode id=18 lang=python3
 #
-# [15] 3Sum
+# [18] 4Sum
 #
 from typing import *
 # @lc code=start
 class Solution:
-    def threeSum(self, nums: List[int]) -> List[List[int]]:
+    def fourSum(self, nums: List[int], target: int) -> List[List[int]]:
         def twoSum(nums, start, target):
             l, r = start, len(nums) - 1
             res = []
@@ -26,22 +26,35 @@ class Solution:
                     while l < r and nums[r] == right:
                         r -= 1
             return res
+        def threeSum(nums, start, target):
+            res = []
+            ptr = start
+            while ptr < len(nums):
+                prev = nums[ptr]
+                two_sum_res = twoSum(nums, ptr+1, target-nums[ptr])
+                for group in two_sum_res:
+                    sub = [nums[ptr]]
+                    for n in group:
+                        sub.append(n)
+                    res.append(sub)
+                while ptr < len(nums) and nums[ptr] == prev:
+                    ptr += 1
+            return res
+        
         nums.sort()
+        res = []
         ptr = 0
-        output = []
-        # print(nums)
         while ptr < len(nums):
             prev = nums[ptr]
-            two_sum_res = twoSum(nums, ptr+1, -prev)
-            # print(f"ptr={ptr}, {two_sum_res}")
-            for group in two_sum_res:
+            three_sum_res = threeSum(nums, ptr+1, target-nums[ptr])
+            for group in three_sum_res:
                 sub = [nums[ptr]]
                 for n in group:
                     sub.append(n)
-                output.append(sub)
+                res.append(sub)
             while ptr < len(nums) and nums[ptr] == prev:
                 ptr += 1
-        return output
-                      
+        return res
+        
 # @lc code=end
 
