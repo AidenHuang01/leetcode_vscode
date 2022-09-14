@@ -12,23 +12,15 @@ class Solution(object):
         :type val: int
         :rtype: int
         """
-        ptr_left = 0
-        ptr_right = len(nums) - 1
-        if len(nums) == 1:
-            if nums[0] == val:
-                nums = []
-                return 0
+        slow, fast = 0, 0
+        while fast < len(nums):
+            if nums[fast] != val:
+                nums[slow] = nums[fast]
+                slow += 1
+                fast += 1
             else:
-                return 1
-        while ptr_left <= ptr_right:
-            if nums[ptr_left] == val:
-                nums[ptr_left], nums[ptr_right] = nums[ptr_right], -1
-                ptr_left -= 1
-                ptr_right -= 1
-            ptr_left += 1
-        print(nums)
-        print(ptr_left)
-        return ptr_left
+                fast += 1
+        return slow
 
         
 # @lc code=end
