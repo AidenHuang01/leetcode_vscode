@@ -12,24 +12,24 @@ class ListNode:
         self.next = next
 class Solution:
     def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
-        ptr_1 = list1
-        ptr_2 = list2
-        dummy = ListNode()
-        curr = dummy
-        while ptr_1 and ptr_2:
-            if ptr_1.val < ptr_2.val:
-                curr.next = ListNode(val=ptr_1.val)
-                curr = curr.next
-                ptr_1 = ptr_1.next
+        ptr1 = list1
+        ptr2 = list2
+        head = ListNode()
+        dummy = head
+        while ptr1 and ptr2:
+            if ptr1.val < ptr2.val:
+                head.next = ptr1
+                ptr1 = ptr1.next
             else:
-                curr.next = ListNode(val=ptr_2.val)
-                curr = curr.next
-                ptr_2 = ptr_2.next
-        if ptr_1:
-            curr.next = ptr_1
-        elif ptr_2:
-            curr.next = ptr_2
+                head.next = ptr2
+                ptr2 = ptr2.next
+            head = head.next
+        if ptr1:
+            head.next = ptr1
+        elif ptr2:
+            head.next = ptr2
         return dummy.next
+
                 
 # @lc code=end
 
